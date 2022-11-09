@@ -57,7 +57,7 @@ module budget
 // 	name             string
 // 	remark           string
 // 	people           []&people.Person
-// 	circles          []&organization.Circle
+// 	circles          []&organization.Group
 // 	cost_fixed       &finance.Amount
 // 	type_extras      &BudgetItemExtras
 // 	id               string

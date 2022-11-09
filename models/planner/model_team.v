@@ -32,6 +32,6 @@ pub mut:
 	person     string
 	group      string
 	membertype TeamMemberType
-	// expiration time.Time
+	// expiration system.OurTime
 	// reputation int = 5
 }

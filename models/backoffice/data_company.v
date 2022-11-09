@@ -5,7 +5,7 @@ import freeflowuniverse.protocolme.organization
 import freeflowuniverse.crystallib.texttools
 
 // TODO company_add
-pub fn (mut data Data) company_add (o organization.CompanyNewArgs) &organization.Company {
+pub fn (mut memdb MemDB) company_add (o organization.CompanyNewArgs) &organization.Company {
 	
 	mut obj := organization.Company{
 		name:   o.name
@@ -23,7 +23,7 @@ pub fn (mut data Data) company_add (o organization.CompanyNewArgs) &organization
 // TODO company_end
 /*
 // Find a specific company
-pub fn (mut data Data) company_find(company_name string) ?&organization.Company {
+pub fn (mut memdb MemDB) company_find(company_name string) ?&organization.Company {
 	shortname := texttools.name_fix_no_underscore_no_ext(company_name)
 
 	if shortname in data.companies {

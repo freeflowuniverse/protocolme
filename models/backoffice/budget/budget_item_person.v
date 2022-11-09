@@ -1,8 +1,8 @@
 module budget
 
 import freeflowuniverse.protocolme.people
-import freeflowuniverse.protocolme.finance
-import freeflowuniverse.protocolme.country
+import freeflowuniverse.protocolme.models.backoffice.finance
+import freeflowuniverse.protocolme.models.backoffice.people
 
 import freeflowuniverse.crystallib.timetools {time_from_string}
 
@@ -25,7 +25,7 @@ pub mut:
 
 
 pub struct PersonAddArgs{
-	country               &country.Country
+	country               &people.Country
 	person                &people.Person
 	remark                string
 	start                 string

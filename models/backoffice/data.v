@@ -2,8 +2,8 @@ module backoffice
 
 import freeflowuniverse.protocolme.people
 import freeflowuniverse.protocolme.organization
-import freeflowuniverse.protocolme.country
-import freeflowuniverse.protocolme.system
+import freeflowuniverse.protocolme.models.backoffice.people
+import freeflowuniverse.protocolme.models.system
 import time
 
 // Data Struct
@@ -12,9 +12,9 @@ pub struct Data {
 	system.Remarks
 pub mut:
 	people       map[string]&people.Person
-	countries    map[string]&country.Country [str: skip]
+	countries    map[string]&people.Country [str: skip]
 	companies    map[string]&organization.Company
-	circles      map[string]&organization.Circle
+	circles      map[string]&organization.Group
 	// TODO: expenses []&organization.ExpenseItem
 }
 
@@ -33,7 +33,7 @@ pub fn new() Data {
 // remark_add
 // ARGS:
 // author = full name of author
-fn (mut data Data) remark_add(content string, unix_time i64, author string) !&Remark {
+fn (mut memdb MemDB) remark_add(content string, unix_time i64, author string) !&Remark {
 	// TODO: need to implement using time conversion & look for author
 	mut person := data.person_get(author)!
 	data.remarks << Remark{

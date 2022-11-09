@@ -1,6 +1,5 @@
 module people
 
-import freeflowuniverse.protocolme.country
 
 [heap]
 pub struct Contact {
@@ -36,14 +35,14 @@ pub mut:
 	street_nr  string
 	city       string
 	postalcode string
-	country    &country.Country
+	country    &Country
 }
 
 // Add email address
 // ARGS:
 // - Email
 pub fn (mut contact Contact) email_add(email Email) {
-	contact.emails << &email //? Why is this symlink
+	contact.emails << &email 
 	// TODO any possible checks)
 }
 

@@ -14,7 +14,7 @@ pub mut:
 	companies    map[u32]&organization.Company
 	circles      map[u32]&organization.Circle [str: skip]
 	// TODO: expenses []&organization.ExpenseItem
-	countries    map[string]&country.Country [str: skip]
+	countries    map[string]&people.Country [str: skip]
 	
 }
 
@@ -33,7 +33,7 @@ pub fn new() Data {
 // remark_add
 // ARGS:
 // author = full name of author
-fn (mut data Data) remark_add(content string, unix_time i64, author string) !&Remark {
+fn (mut memdb MemDB) remark_add(content string, unix_time i64, author string) !&Remark {
 	// TODO: need to implement using time conversion & look for author
 	mut person := data.person_get(author)!
 	data.remarks << Remark{

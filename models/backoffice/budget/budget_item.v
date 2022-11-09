@@ -1,7 +1,7 @@
 module budget
 
-import freeflowuniverse.protocolme.finance
-import freeflowuniverse.protocolme.country
+import freeflowuniverse.protocolme.models.backoffice.finance
+import freeflowuniverse.protocolme.models.backoffice.people
 
 import freeflowuniverse.crystallib.timetools {time_from_string}
 
@@ -18,9 +18,9 @@ pub mut:
 	id               int
 	name             string
 	remark           string
-	country          &country.Country  // This might change to enum or custom struct
-	start            time.Time 		  
-	stop             time.Time
+	country          &people.Country  // This might change to enum or custom struct
+	start            system.OurTime 		  
+	stop             system.OurTime
 	cost_fixed       &finance.Amount // fixed monthly - USD
 	cost_fixed_min   &finance.Amount
 	cost_fixed_max   &finance.Amount
@@ -46,7 +46,7 @@ pub struct ItemAddArgs {
 	start            string		  
 	stop             string
 	cost_month       string // fixed monthly - USD
-	country          &country.Country 
+	country          &people.Country 
 	generic_type     string
 	vat_extra        string = '0 USD'
 }

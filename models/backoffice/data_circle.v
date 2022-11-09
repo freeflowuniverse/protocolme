@@ -7,8 +7,8 @@ module backoffice
 
 // TODO circle_end
 /*
-// Find a specific Circle
-pub fn (mut data Data) circle_find(circle_name string) ?&organization.Circle {
+// Find a specific Group
+pub fn (mut memdb MemDB) circle_find(circle_name string) ?&organization.Group {
 	shortname := texttools.name_fix_no_underscore_no_ext(circle_name)
 
 	if shortname in data.circles {

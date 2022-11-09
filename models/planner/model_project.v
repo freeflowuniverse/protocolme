@@ -19,7 +19,7 @@ pub mut:
 	issues       []int
 	tasks        []int
 	members      []ProjectMemberShip
-	deadline     time.Time
+	deadline     system.OurTime
 	dependencies []int // dependencies to other projects
 	description  string
 	comments     []int
@@ -37,6 +37,6 @@ pub mut:
 	person     string
 	group      string
 	membertype ProjectMemberType
-	expiration time.Time
+	expiration system.OurTime
 	reputation int = 50
 }

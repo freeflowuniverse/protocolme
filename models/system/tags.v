@@ -1,10 +1,4 @@
-module planner
-
-[heap]
-pub struct Tags {
-pub mut:
-	tags []Tag
-}
+module system
 
 pub struct Tag {
 pub mut:

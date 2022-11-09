@@ -25,7 +25,7 @@ pub mut:
 	title        string
 	state        IssueStatus
 	members      []IssueMemberShip
-	deadline     time.Time
+	deadline     system.OurTime
 	dependencies []int // dependencies to other projects
 	description  string
 	comments     []int
@@ -43,5 +43,5 @@ pub mut:
 	person     string
 	group      string
 	membertype IssueMemberType
-	expiration time.Time
+	expiration system.OurTime
 }

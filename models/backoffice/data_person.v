@@ -4,7 +4,7 @@ import freeflowuniverse.protocolme.people
 import freeflowuniverse.crystallib.texttools
 import time
 
-pub fn (mut data Data) initialise_person () people.Person {
+pub fn (mut memdb MemDB) initialise_person () people.Person {
 	mut new_person := people.Person{
 		firstname:   ''
 		lastname:    ''
@@ -25,7 +25,7 @@ pub fn (mut data Data) initialise_person () people.Person {
 // 	title  string
 //	description string
 // }
-pub fn (mut data Data) person_add(o people.PersonNewArgs) !&people.Person {
+pub fn (mut memdb MemDB) person_add(o people.PersonNewArgs) !&people.Person {
 	
 	// function to find latest id 
 	mut latest_id := 0
@@ -71,7 +71,7 @@ pub fn (mut data Data) person_add(o people.PersonNewArgs) !&people.Person {
 // makes a person inactive
 // ARGS:
 // - full_name of person string
-pub fn (mut data Data) person_end(full_name string) {
+pub fn (mut memdb MemDB) person_end(full_name string) {
 	mut person := data.person_find(full_name) or {panic(err)}
 	person.state = .inactive
 	// TODO: remove this person from future budget items
@@ -80,7 +80,7 @@ pub fn (mut data Data) person_end(full_name string) {
 // find a specific person
 // ARGS:
 // - full_name of person string
-pub fn (mut data Data) person_get (full_name string) !&people.Person {
+pub fn (mut memdb MemDB) person_get (full_name string) !&people.Person {
 	shortname := texttools.name_fix_no_underscore_no_ext(full_name).replace(' ','')
 	// TODO what happens if there are two identical names
 	if shortname in data.people {

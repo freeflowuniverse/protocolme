@@ -1,6 +1,6 @@
 module budget
 
-import freeflowuniverse.protocolme.finance
+import freeflowuniverse.protocolme.models.backoffice.finance
 
 //budget_month
 // This file deals with all definitions and functions for creating 

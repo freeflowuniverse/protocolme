@@ -1,6 +1,6 @@
 module finance
 
-import freeflowuniverse.protocolme.country
+import freeflowuniverse.protocolme.models.backoffice.people
 
 pub enum BlockchainType {
 	stellar
@@ -37,7 +37,7 @@ pub mut:
 	account_num string 
 	iban        string [required]
 	swift_code  string [required]
-	country     &country.Country [required]
+	country     &people.Country [required]
 	description string // optional
 	preferred   bool
 }
@@ -48,7 +48,7 @@ pub mut:
 	account_num string 
 	iban        string [required]
 	swift_code  string [required]
-	country     &country.Country [required]
+	country     &people.Country [required]
 	description string 
 	preferred   bool //? Is this false by default?
 }

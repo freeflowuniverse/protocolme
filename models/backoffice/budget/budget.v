@@ -19,7 +19,7 @@ type BudgetItem = BudgetItemPerson | BudgetItemGeneric | BudgetItemOffice
 
 // pub struct BudgetAllocationCompany{
 // pub mut:
-// 	start time.Time
+// 	start system.OurTime
 // 	nrmonths int = 60
 // 	company &organization.Company
 // 	percentage int //0-100

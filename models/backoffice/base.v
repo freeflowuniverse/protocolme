@@ -15,13 +15,13 @@ pub mut:
 struct Remark {
 pub mut:
 	content string
-	time    time.Time
+	time    system.OurTime
 	author  &people.Person
 }
 
 /*
 Duplicate
-fn (mut data Data) remark_add(content string, time string,author string) ?&Remark {
+fn (mut memdb MemDB) remark_add(content string, time string,author string) ?&Remark {
 	//TODO: need to implement using time conversion & look for author
 	mut contr:=data.person_find(author)?
 	time2:=timetools.get(time)?

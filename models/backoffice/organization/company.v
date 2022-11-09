@@ -1,14 +1,14 @@
 module organization
 
-import freeflowuniverse.protocolme.budget
-import freeflowuniverse.protocolme.country
+import freeflowuniverse.protocolme.models.backoffice.budget
+import freeflowuniverse.protocolme.people
 
 // company structure
 pub struct Company {
 pub mut:
 	name                  string
-	circles               map[string]&Circle
-	registration_country  &country.Country
+	circles               map[string]&people.Group
+	registration_country  &people.Country
 	budget                &budget.Budget
 }	
 
@@ -17,8 +17,8 @@ pub mut:
 pub struct CompanyNewArgs {
 pub mut:
 	name                  string
-	circles               map[string]&Circle
-	registration_country  &country.Country
+	circles               map[string]&Group
+	registration_country  &people.Country
 }	
 
 pub fn (mut company Company) budget_create () &budget.Budget {

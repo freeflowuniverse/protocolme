@@ -10,5 +10,5 @@ pub struct ChecklistItem {
 pub mut:
 	description string
 	name        string
-	deadline    time.Time
+	deadline    system.OurTime
 }

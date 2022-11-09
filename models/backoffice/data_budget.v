@@ -1,7 +1,7 @@
 module backoffice
 
 //import freeflowuniverse.protocolme.organization
-//import freeflowuniverse.protocolme.finance
+//import freeflowuniverse.protocolme.models.backoffice.finance
 //import freeflowuniverse.crystallib.timetools
 //import time
 //import math
@@ -9,7 +9,7 @@ module backoffice
 // generates monthly budgets
 // ARGS:
 // num_months int - number of monthly budgets which will be generated starting from this one
-// TODO pub fn (mut data Data) monthly_budget (num_months int)
+// TODO pub fn (mut memdb MemDB) monthly_budget (num_months int)
 
 //? Do I need to import the organization module
 /*
@@ -21,7 +21,7 @@ module backoffice
 // cost_fixed string 		 - amount and currency code
 // cost_fixed_min string 	 - "  "
 // cost_fixed_max string 	 - "  "
-pub fn (mut data Data) budget_item_add(name string, remark string, start_time string, cost_fixed string) &organization.BudgetItem {
+pub fn (mut memdb MemDB) budget_item_add(name string, remark string, start_time string, cost_fixed string) &organization.BudgetItem {
 	cost := finance.amount_get(cost_fixed)
 	mut start := get_expiration_from_timestring(start_time) or {panic(error)} //TODO check this is correct
 
@@ -53,7 +53,7 @@ pub fn (mut data Data) budget_item_add(name string, remark string, start_time st
 // Find a specific budget item in data
 // ARGS:
 // - target_id string of budget_item
-pub fn (mut data Data) budget_item_find(target_id string) ?&organization.BudgetItem {
+pub fn (mut memdb MemDB) budget_item_find(target_id string) ?&organization.BudgetItem {
 	if target_id in data.budget_items {
 		return data.budget_items[target_id]
 	}
@@ -64,7 +64,7 @@ pub fn (mut data Data) budget_item_find(target_id string) ?&organization.BudgetI
 // ARGS:
 // - year string
 // - month string
-pub fn (data Data) monthly_budget(year string, month string) ?&organization.PeriodBudget {
+pub fn (memdb MemDB) monthly_budget(year string, month string) ?&organization.PeriodBudget {
 	period_start := time.parse('$year-$month-01 00:00:00') or { panic(err) }
 
 	month_ := (month.int() + 1).str()
@@ -90,7 +90,7 @@ pub fn (data Data) monthly_budget(year string, month string) ?&organization.Peri
 // ARGS:
 // - year string
 // - quarter string
-pub fn (data Data) quarterly_budget(year string, quarter string) &organization.PeriodBudget {
+pub fn (memdb MemDB) quarterly_budget(year string, quarter string) &organization.PeriodBudget {
 	month := ((quarter.int() * 3) - 2).str()
 	period_start := time.parse('$year-$month-01 00:00:00') or { panic(err) }
 
@@ -116,7 +116,7 @@ pub fn (data Data) quarterly_budget(year string, quarter string) &organization.P
 // get yearly budget
 // ARGS:
 // - year string
-pub fn (data Data) yearly_budget(year string) &organization.PeriodBudget {
+pub fn (memdb MemDB) yearly_budget(year string) &organization.PeriodBudget {
 	period_start := time.parse('$year-01-01 00:00:00') or { panic(err) }
 
 	year_ := (year.int() + 1).str()
@@ -145,7 +145,7 @@ pub fn (data Data) yearly_budget(year string) &organization.PeriodBudget {
 // 	budget_breakdown  &BudgetBreakdown
 // }
 // TODO: Do max and min budgets
-fn (data Data) get_budget(period_start time.Time, period_end time.Time) &organization.BaseBudget {
+fn (memdb MemDB) get_budget(period_start system.OurTime, period_end system.OurTime) &organization.BaseBudget {
 	mut relevant_budget_items := []&organization.BudgetItem
 	for key, budget_item in data.budget_items {
 		if budget_item.start.unix_time < period_start.unix_time {
@@ -261,7 +261,7 @@ pub struct BudgetToolInput {
 */
 
 // input should be a struct
-fn (data Data) budget_tool (input BudgetToolInput) map[string]map[string]map[string]organization.BudgetStatistics {
+fn (memdb MemDB) budget_tool (input BudgetToolInput) map[string]map[string]map[string]organization.BudgetStatistics {
 	for time_period in input.time_periods {
 		period_start, period_end := parse_time(time_period)
 		mut budget_item_slices := data.slices_get(period_start, period_end)
@@ -272,7 +272,7 @@ fn (data Data) budget_tool (input BudgetToolInput) map[string]map[string]map[str
 
 // Parses a time period into start and end times
 // used in fn budget_tool
-fn parse_time (time_period string) (time.Time, time.Time) {
+fn parse_time (time_period string) (system.OurTime, system.OurTime) {
 
 	if 'M' in time_period.split(''){
 		month := time_period[time_period.len-1..time_period.len]
@@ -304,7 +304,7 @@ fn parse_time (time_period string) (time.Time, time.Time) {
 
 // Filters budget_items by a period, creating an array of budget slices
 // used in fn budget_tool
-fn (data Data) slices_get (period_start time.Time, period_end time.Time) []&BudgetItemSlice {
+fn (memdb MemDB) slices_get (period_start system.OurTime, period_end system.OurTime) []&BudgetItemSlice {
 	
 	// iterates through all budget_items and only picks those which overlap with time_period
 	mut budget_item_slices := []&organization.BudgetItemSlice
@@ -335,12 +335,12 @@ fn (data Data) slices_get (period_start time.Time, period_end time.Time) []&Budg
 	}
 
 	// this function needs to calculate the proportion of the period which it was active
-	fn (budget_item &BudgetItem) slice_cost (period_start time.Time, period_end time.Time) cost int {
+	fn (budget_item &BudgetItem) slice_cost (period_start system.OurTime, period_end system.OurTime) cost int {
 		// OVERALL AIM: number of active days in period * monthly_cost/30
 		// convert period_start and end to unix time integers
 		// do logic for before and after to get total unix time
 		// convert unix time into a number of days
-		fn unint (time_object time.Time) int {
+		fn unint (time_object system.OurTime) int {
 			unix_i64 := time.unix_time(time_object)
 			return  unix_i64.str().int()
 		}
@@ -384,7 +384,7 @@ fn (budget_item_slices []&BudgetItemSlice) filter (filter_list []&Entity)  []&Bu
 	filtered_slices := match typeof(filter_list[0]) {
 		&people.Person            {budget_item_slices.filter_by_people(filter_list)}
 		&organization.Company     {budget_item_slices.filter_by_companies(filter_list)}
-		&organization.Circle      {budget_item_slices.filter_by_circles(filter_list)}
+		&organization.Group      {budget_item_slices.filter_by_circles(filter_list)}
 	}
 
 	return filtered_slices

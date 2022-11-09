@@ -15,19 +15,19 @@ pub mut:
 	name        string
 	description string
 	// path string
-	// state        FileStatus
+	state        StoryStatus
 	owner        []string
 	contributors []string
-	// assignment []StoryAssign // someone works on the story or task, or bug, ...
+	assignment []StoryAssign // someone works on the story or task, or bug, ...
 }
 
-// pub struct StoryAssign {
-// pub mut:
-// 	person     string
-// 	group      string
-// 	// membertype StoryAssignType
-// 	expiration time.Time
-// }
+pub struct StoryAssign {
+pub mut:
+	person     string
+	group      string
+	// membertype StoryAssignType
+	expiration system.OurTime
+}
 
 pub enum StoryLineState {
 	start
@@ -42,7 +42,7 @@ fn (mut story Story) params_process(p texttools.Params) ? {
 }
 
 // load the lines into a story object
-fn (mut story Story) load(lines []string) ? {
+fn (mut story Story) text_load(lines []string) ? {
 	mut headerlevel := 0
 	mut state := StoryLineState.start
 	mut checklists := Checklists{}

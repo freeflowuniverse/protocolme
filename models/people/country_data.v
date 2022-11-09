@@ -256,8 +256,8 @@ Aland Islands	AX	ALA	248
 
 // Get the countries from the hardcoded list
 // ARGS:
-pub fn countries_get() map[string]&country.Country {
-	mut cs := map[string]&country.Country{}
+pub fn countries_get() map[string]&Country {
+	mut cs := map[string]&Country{}
 	for country__ in country_string.split_into_lines() {
 		mut country_ := country__.trim_space()
 		country_ = country_.replace('\t', ' ').replace('  ', ' ').replace('  ', ' ')
@@ -270,7 +270,7 @@ pub fn countries_get() map[string]&country.Country {
 		country_ = country_.all_before_last(' ')
 		code2 := country_.all_after_last(' ')
 		country_ = country_.all_before_last(' ')
-		c := country.Country{
+		c := Country{
 			name: country_
 			code2: code2
 			code3: code3
@@ -285,17 +285,4 @@ pub fn countries_get() map[string]&country.Country {
 	//cs['united_arab_emirates'].vat_percent = 0
 
 	return cs
-}
-
-// Function to get a country
-// ARGS:
-// country string - can be name or code
-pub fn (mut data Data) country_get (country string) !&country.Country {
-	country_ := texttools.name_fix_no_underscore_no_ext(country).to_lower()
-	for _, value in data.countries {
-		if (value.name.to_lower() == country_)||(value.code2.to_lower() == country_)||(value.code3.to_lower() == country_) {
-			return value
-		} 
-	}
-	return error("Failed to find country: $country")
 }
