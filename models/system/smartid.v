@@ -4,19 +4,33 @@ import time
 import math
 
 pub struct SmartId{
-pub mut:
-	id []u32
+mut:
+	region string 
+	twin string
+	obj string
 }
 
-// Decimalise Smart ID
-// Converts a smart id string into a u32 and set in obj
-// ARGS:
-// smart_id - string
-pub (mut sid SmartId) set (smart_id string){
-	sid.id = decimalise_smart_id(smart_id)
+pub (mut sid SmartId) set (t string){
+	sid.id = t
+	//TODO: need to do some checks
 }
 
-pub (mut sid SmartId) str (smart_id string){
+
+
+pub (mut sid SmartId) region_int() u32{
+	return smartid_string2int(sid.region)
+}
+
+pub (mut sid SmartId) twin_int() u32{
+	return smartid_string2int(sid.twin)
+}
+
+pub (mut sid SmartId) obj_int() u32{
+	return smartid_string2int(sid.obj)
+}
+
+
+pub (mut sid SmartId) str (){
 	sid.id = decimalise_smart_id(smart_id)
 }
 
