@@ -2,7 +2,7 @@ module system
 import freeflowuniverse.protocolme.people
 
 [heap]
-struct Remarks {
+pub struct Remarks {
 pub mut:
 	remarks []Remark
 }

@@ -1,14 +1,15 @@
 module backoffice
 
-import freeflowuniverse.backoffice.people
-import freeflowuniverse.backoffice.organization
-import freeflowuniverse.backoffice.country
+import freeflowuniverse.protocolme.people
+import freeflowuniverse.protocolme.organization
+import freeflowuniverse.protocolme.country
+import freeflowuniverse.protocolme.system
 import time
 
 // Data Struct
 [heap]
 pub struct Data {
-	Base
+	system.Remarks
 pub mut:
 	people       map[string]&people.Person
 	countries    map[string]&country.Country [str: skip]

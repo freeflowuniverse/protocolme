@@ -1,7 +1,7 @@
 module organization
 
-import freeflowuniverse.backoffice.budget
-import freeflowuniverse.backoffice.country
+import freeflowuniverse.protocolme.budget
+import freeflowuniverse.protocolme.country
 
 // company structure
 pub struct Company {

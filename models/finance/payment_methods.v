@@ -1,6 +1,6 @@
 module finance
 
-import freeflowuniverse.backoffice.country
+import freeflowuniverse.protocolme.country
 
 pub enum BlockchainType {
 	stellar

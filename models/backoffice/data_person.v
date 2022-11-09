@@ -1,6 +1,6 @@
 module backoffice
 
-import freeflowuniverse.backoffice.people
+import freeflowuniverse.protocolme.people
 import freeflowuniverse.crystallib.texttools
 import time
 

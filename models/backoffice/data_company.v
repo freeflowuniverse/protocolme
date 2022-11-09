@@ -1,7 +1,7 @@
 module backoffice
 
 //import freeflowuniverse.backoffice.people
-import freeflowuniverse.backoffice.organization
+import freeflowuniverse.protocolme.organization
 import freeflowuniverse.crystallib.texttools
 
 // TODO company_add

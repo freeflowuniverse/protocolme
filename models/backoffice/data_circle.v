@@ -1,6 +1,6 @@
 module backoffice
 
-//import freeflowuniverse.backoffice.organization
+//import freeflowuniverse.protocolme.organization
 //import freeflowuniverse.crystallib.texttools
 
 // TODO circle_add

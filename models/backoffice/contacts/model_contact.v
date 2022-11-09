@@ -1,6 +1,6 @@
 module people
 
-import freeflowuniverse.backoffice.country
+import freeflowuniverse.protocolme.country
 
 [heap]
 pub struct Contact {

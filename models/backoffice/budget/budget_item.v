@@ -1,7 +1,7 @@
 module budget
 
-import freeflowuniverse.backoffice.finance
-import freeflowuniverse.backoffice.country
+import freeflowuniverse.protocolme.finance
+import freeflowuniverse.protocolme.country
 
 import freeflowuniverse.crystallib.timetools {time_from_string}
 

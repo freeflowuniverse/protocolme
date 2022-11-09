@@ -1,6 +1,6 @@
 module budget
 
-import freeflowuniverse.backoffice.people
+import freeflowuniverse.protocolme.people
 
 // budget
 // This file deals with the main budget item

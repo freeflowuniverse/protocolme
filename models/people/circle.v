@@ -1,10 +1,10 @@
 module organization
 
-import freeflowuniverse.backoffice.people
-//import freeflowuniverse.backoffice
+import freeflowuniverse.protocolme.people
+//import freeflowuniverse.protocolme
 
 pub struct Circle {
-	//backoffice.Base
+	//protocolme.Base
 pub mut:
 	name        string
 	description string

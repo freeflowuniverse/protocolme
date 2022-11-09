@@ -1,6 +1,6 @@
 module backoffice
 
-import freeflowuniverse.backoffice.people
+import freeflowuniverse.protocolme.people
 import time
 
 //? what is this entire section for?

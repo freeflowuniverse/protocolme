@@ -1,6 +1,6 @@
 module backoffice
 
-import freeflowuniverse.backoffice.country
+import freeflowuniverse.protocolme.country
 import freeflowuniverse.crystallib.texttools
 
 const country_string = '

@@ -1,6 +1,6 @@
 module people
 
-import freeflowuniverse.backoffice.finance
+import freeflowuniverse.protocolme.finance
 import time
 
 pub enum PersonType {
