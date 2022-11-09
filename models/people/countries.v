@@ -1,4 +1,4 @@
-module country
+module people
 
 [heap]
 pub struct Country { 

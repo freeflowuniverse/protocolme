@@ -1,4 +1,4 @@
-module organization
+module people
 
 import freeflowuniverse.protocolme.people
 //import freeflowuniverse.protocolme
