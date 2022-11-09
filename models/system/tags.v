@@ -1,14 +1,14 @@
 module planner
 
-pub struct Checklist {
+[heap]
+pub struct Tags {
 pub mut:
-	title  string
-	checks []ChecklistItem
+	tags []Tag
 }
 
-pub struct ChecklistItem {
+pub struct Tag {
 pub mut:
-	description string
 	name        string
-	deadline    time.Time
+	value		string 
 }
+
