@@ -51,6 +51,28 @@ fn smartid_string2int (smart_id string) u32 {
 } 
 
 fn smartid_int2string (smart_id u32) string {
-	panic("todo")
-	return ""
+	mut completed := false
+	mut remaining := int(smart_id)
+  	mut decimals := []f64
+  	mut count := 1
+	for completed == false {
+		if int(math.pow(36,count)) > smart_id {
+    		for i in 0..count {
+        		decimals << math.floor(f64(remaining / int(math.pow(36,count-1-i))))
+        		remaining = remaining % int(math.pow(36,count-1-i))
+      		}
+      		completed = true
+		} else {
+			count += 1
+		}
+	}
+  	mut strings := []string
+    for i in 0..(decimals.len) {
+    	if decimals[i] >= 0 && decimals[i] <= 9 {
+      		strings << u8(decimals[i]+48).ascii_str()
+    	} else {
+      		strings << u8(decimals[i]+87).ascii_str()
+    	}
+    }
+	return strings.join('')
 } 
