@@ -2,10 +2,27 @@ module system
 import time
 
 pub struct OurTime{
-	time.Time
+pub mut:
+	unix u32
 }
 
 //print the wiki formatting for time
-fn (ourtime OurTime) md() string{
-	return "TODO"
+pub fn (ourtime OurTime) md() string{
+	return ourtime.time().format()
+}
+
+pub fn (ourtime OurTime) str() string{
+	return ourtime.time().format()
+}
+
+
+
+pub fn (mut t OurTime) now(){
+	t.unix = u32(time.now().unix_time())
+}
+
+
+//get time from vlang
+pub fn (t OurTime) time() time.Time{
+	return time.unix(i64(t.unix))
 }

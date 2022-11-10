@@ -2,15 +2,12 @@ module people
 
 // import freeflowuniverse.protocolme.models.backoffice.finance
 import freeflowuniverse.protocolme.models.system
-
-pub enum PersonType {
-	employee 
-	consultant
-	investor
-}
+import json
+import freeflowuniverse.crystallib.resp
 
 [heap]
 pub struct Person {
+	system.Base
 pub mut:
 	id              string // needs to be unique
 	firstname       string
@@ -18,8 +15,7 @@ pub mut:
 	description     string
 	start_date      system.OurTime
 	end_date        system.OurTime
-	contact         &Contact
-	person_type     PersonType
+	// contact         []Contact
 }
 
 
@@ -28,7 +24,6 @@ pub mut:
 	firstname   string [required] 
 	lastname    string [required]
 	description string
-	person_type string [required]
 }
 
 // ## Add Contact Information
@@ -44,7 +39,31 @@ pub fn (mut person Person) contact_add() !&Contact {
 		lastname: person.lastname
 		description: person.description //? How to set this as optional if description not given
 	}
-	person.contact = &o
-	// TODO any possible checks
-	return person.contact
+	// person.contact << o
+	return &o
 }
+
+
+pub fn person_new(data string) ?Person {
+	if data!=""{
+		obj := json.decode(Person, data) or {
+			return error('Failed to decode json, error: $err for $data')
+		}
+		return obj
+	}
+	return Person{}
+}
+
+pub fn (mut o Person) serialize() !string {
+	mut b:=o.respbuilder()!
+	b.add(resp.r_list_string([o.id, o.firstname,o.lastname, o.description]))
+	b.add(resp.r_list_int([]))
+	return b.data.bytestr()
+}
+
+pub fn (mut o Person) json() string {
+	return json.encode(o)
+}
+
+
+
