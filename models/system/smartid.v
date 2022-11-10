@@ -66,6 +66,21 @@ fn smartid_string (smart_id u32) string {
 
 //check if formast is [..5].[..5].[..5] . and [..5] is string
 //return error if issue
-fn smartid_check (smart_id string) ? {
-	//TODO: jonathan
+fn smartid_check (smart_id string) bool {
+	mut ids := smart_id.split('.')
+	if ids.len > 3 || ids.len < 2 {
+		return false
+	}
+	for id in ids {
+		if id.len > 6 || id.len < 2 {
+			return false
+		}
+		for cha in id {
+			if (cha < 48 || cha > 57) && (cha < 97 || cha > 122) {
+				return false
+			}
+
+		}
+	}
+	return true
 }
