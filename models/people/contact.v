@@ -1,5 +1,20 @@
 module people
 
+enum ContactsState{
+	init		 //is still init mode, empty
+	smartids	 //the smartid's are known
+	loaded		 //the contact data has been fetched
+}
+
+[heap]
+pub struct Contacts {
+	system.Base	
+pub mut:
+	contacts []Contact
+	contacts_smartids [][3]u32 [str: skip] //region,twin,sid
+	state 
+}
+
 
 [heap]
 pub struct Contact {
@@ -37,6 +52,22 @@ pub mut:
 	postalcode string
 	country    &Country
 }
+
+//add a contact which will be owned by the local twin
+pub fn (mut contacts Contacts) new() &Contact {
+	mut c:=Contact
+	constacts.contacts << &c
+	return &c
+}
+
+//add contact based on smartid
+pub fn (mut contacts Contacts) add(mut &GSmartId) &Contact {
+	mut c:=Contact
+	constacts.contacts << &c
+	return &c
+}
+
+
 
 // Add email address
 // ARGS:
