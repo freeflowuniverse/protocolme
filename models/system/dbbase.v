@@ -5,7 +5,7 @@ module system
 pub struct DBBase {
 mut:
 	//is a map where the smartid of the object is the base and then a list of remarks
-	remarks    map[u32]&Remarks [str: skip]
+
 }
 
 

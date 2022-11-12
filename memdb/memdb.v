@@ -1,26 +1,34 @@
 module memdb
 
 import freeflowuniverse.protocolme.models.people
+import freeflowuniverse.protocolme.models.system
 import freeflowuniverse.protocolme.models.backoffice.organization
 import time
 
-// Data Struct
+
+[heap]
+pub struct MemDBGlobal {
+pub mut:
+	dbs map[string]MemDB //the key is the region.twin sid
+}
+
 [heap]
 pub struct MemDB {
 	DBBase
 pub mut:
-	people       map[u32]&people.Person [str: skip]
-	companies    map[u32]&organization.Company
-	groups       map[u32]&people.Group [str: skip]
-	// TODO: expenses []&organization.ExpenseItem
-	countries    map[string]&people.Country [str: skip]
-	
+	remarks    map[u32]&system.Remarks [str: skip]
+	people people.MemDB
 }
 
-// creates a new global data structure
-// ARGS:
-pub fn new( [2]u32) MemDB {
-	mut d := MemDB{}
-	d.countries = people.countries_get()
+pub fn new() MemDBGlobal {
+
+}
+
+// creates a new global data structure (is organized per region/twin)
+pub fn (mut gdb MemDBGlobal) new(sids [2]u32) MemDB {
+	mut d := MemDB{
+		people:people.MemDB{}
+	}
+	gdb.dbs[system.smartids2_string(sids)] = d
 	return d
 }

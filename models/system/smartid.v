@@ -9,6 +9,7 @@ pub:
 	region u32
 	twin u32
 	obj u32
+	otype u8	
 	
 }
 
@@ -36,6 +37,11 @@ fn smartid_int (smart_id string) u32 {
 	}
 	return u32(result)			
 } 
+
+//return smartid for 2 parts e.g. region and twin
+pub fn smartids2_string (sids [2]u32) string {
+	return "${smartid_string(sids[0])}.${smartid_string(sids[1])}"
+}
 
 fn smartid_string (smart_id u32) string {
 	mut completed := false

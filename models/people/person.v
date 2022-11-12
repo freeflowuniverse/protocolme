@@ -15,7 +15,7 @@ pub mut:
 	description     string
 	start_date      system.OurTime
 	end_date        system.OurTime
-	// contact         []Contact
+	contacts        Contacts
 }
 
 
@@ -57,7 +57,7 @@ pub fn person_new(data string) ?Person {
 pub fn (mut o Person) serialize() !string {
 	mut b:=o.respbuilder()!
 	b.add(resp.r_list_string([o.id, o.firstname,o.lastname, o.description]))
-	b.add(resp.r_list_int([]))
+	b.add(resp.r_list_int([o.start_date.int(),o.end_date.int()]))
 	return b.data.bytestr()
 }
 
@@ -65,5 +65,9 @@ pub fn (mut o Person) json() string {
 	return json.encode(o)
 }
 
+
+pub fn (mut o Person) contacts() ![]Contact {
+	
+}
 
 

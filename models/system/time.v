@@ -15,6 +15,10 @@ pub fn (ourtime OurTime) str() string{
 	return ourtime.time().format()
 }
 
+pub fn (ourtime OurTime) int() int{
+	return int(ourtime.time().unix_time())
+}
+
 
 
 pub fn (mut t OurTime) now(){
