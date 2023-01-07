@@ -61,7 +61,7 @@ pub fn (mut contacts Contacts) new() &Contact {
 }
 
 //add contact based on smartid
-pub fn (mut contacts Contacts) add(mut &GSmartId) &Contact {
+pub fn (mut contacts Contacts) add(mut &SmartId) &Contact {
 	mut c:=Contact
 	constacts.contacts << &c
 	return &c

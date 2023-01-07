@@ -8,10 +8,9 @@ import freeflowuniverse.crystallib.params
 [heap]
 pub struct Base{
 pub mut:
-	smartid string //smartid
+	smartid SmartId
 	params params.Params	
 	version u8 = 1
-	objtype u16
 }
 
 
@@ -33,7 +32,7 @@ pub fn (mut o Base) params_add(text string) !params.Params{
 // - bytestr representing the acl as resp encoded
 pub fn (mut o Base) respbuilder() !resp.Builder{
 	mut b := resp.builder_new()
-	b.add(resp.r_int(int(99))
+	b.add(resp.r_int(int(99)))
 	b.add(resp.r_int(int(o.objtype))) //remember which obj type this is	
 	b.add(resp.r_int(int(o.version))) //remember which version this is	
 	b.add(resp.r_list_int([

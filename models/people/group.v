@@ -1,9 +1,7 @@
 module people
 
 //group of people (persons)
-[heap]
 pub struct Group {
-	//protocolme.Base
 pub mut:
 	name        string
 	description string
