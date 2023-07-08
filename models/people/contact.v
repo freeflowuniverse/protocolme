@@ -11,7 +11,6 @@ pub struct Contacts {
 	system.Base	
 pub mut:
 	contacts []Contact
-	contacts_smartids [][3]u32 [str: skip] //region,twin,sid
 	state 
 }
 
@@ -55,17 +54,17 @@ pub mut:
 
 //add a contact which will be owned by the local twin
 pub fn (mut contacts Contacts) new() &Contact {
-	mut c:=Contact
+	mut c:=Contact{}
 	constacts.contacts << &c
 	return &c
 }
 
-//add contact based on smartid
-pub fn (mut contacts Contacts) add(mut &SmartId) &Contact {
-	mut c:=Contact
-	constacts.contacts << &c
-	return &c
-}
+// //add contact based on smartid
+// pub fn (mut contacts Contacts) add(mut &SmartId) &Contact {
+// 	mut c:=Contact
+// 	constacts.contacts << &c
+// 	return &c
+// }
 
 
 

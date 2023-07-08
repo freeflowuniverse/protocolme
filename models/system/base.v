@@ -1,9 +1,8 @@
 module system
-import time
 import json
-import freeflowuniverse.crystallib.texttools
-import freeflowuniverse.crystallib.resp
 import freeflowuniverse.crystallib.params
+import freeflowuniverse.crystallib.encoder
+
 
 [heap]
 pub struct Base{
@@ -19,30 +18,22 @@ pub fn (mut o Base) json() string{
 }
 
 pub fn (mut o Base) params_add(text string) !params.Params{
-	o.params = params.text_to_params(text)!
+	o.params = params.new(text)!
 	return o.params
 }
 
-//returns builder already populated with
-// - 99 is the type of serialization, this means its an object
-// - objtype
+//returns bin encoder already populated with
 // - version
 // - []smartid (the 3 int's for global smartid)
-// - bytestr representing the params as resp encoded
-// - bytestr representing the acl as resp encoded
-pub fn (mut o Base) respbuilder() !resp.Builder{
-	mut b := resp.builder_new()
-	b.add(resp.r_int(int(99)))
-	b.add(resp.r_int(int(o.objtype))) //remember which obj type this is	
-	b.add(resp.r_int(int(o.version))) //remember which version this is	
-	b.add(resp.r_list_int([
-		int(0),//need to implement (region)
-		int(0),//need to implement (twin)
-		int(smartid_int(o.smartid))]
-		)) //smartid
-	paramsbytestr := o.params.to_resp()!
-	b.add(resp.r_bytestring(paramsbytestr)) // params
-	b.add(resp.r_bytestring([]u8{})) //acl
+// - bytestr representing the params as bin encoded
+pub fn (mut o Base) bin_encoder() !encoder.Encoder{
+	mut b := encoder.encoder_new()
+	b.add_int(o.version) //remember which version this is	
+
+	paramsbytestr := o.params.to_resp()! //TODO: need to use encoder
+	b.add_bytes(paramsbytestr) // params
+
+	panic("not implemented")
 	
 	return b
 }

@@ -13,6 +13,6 @@ struct Remark {
 pub mut:
 	content string
 	time    OurTime
-	author  string //smartid to twin.person 
+	author  string //smartid to circle.person 
 }
 

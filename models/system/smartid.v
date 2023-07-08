@@ -7,22 +7,17 @@ import math
 pub struct SmartId{
 pub mut:
 	region u32
-	twin u32
+	circle u32
 	obj u32
-	otype u8
-	ref u32 //how it is stored in the local db, if its stored locally
 }
 
-pub fn new(sid string,otype u8) SmartId{
-	if sid == ""{
-		return SmartId{region:0, twin:0, obj:0, otype:otype}
-	}else{
-		return SmartId{region:0, twin:0, obj:0, otype:otype}
-	}
-
+// smartid is of form region.circle.obj
+// each part min3 max 6 chars, each char = a...z or 0...9
+pub fn new(sid string) !SmartId{
+	return smartdid_new(sid)
 }
 
-//return smartid for 2 parts e.g. region and twin
+//return smartid for 2 parts e.g. region and circle
 pub fn smartids2_string (sids [2]u32) string {
 	return "${smartid_string(sids[0])}.${smartid_string(sids[1])}"
 }
@@ -92,8 +87,8 @@ fn smartid_check (gsid string) bool {
 }
 
 
-///return global smartid, the object type will not be filled in
-fn gsmartid_to_ints(gsid string) !SmartId {
+///return global smartid
+fn smartdid_new(gsid string) !SmartId {
 	mut o:=SmartId{}
 	mut ids := gsid.split('.')	
 	if ids.len > 3{
@@ -113,10 +108,10 @@ fn gsmartid_to_ints(gsid string) !SmartId {
 	}
 	if r.len==2{
 		o.region = r[0]
-		o.twin =  r[1]
+		o.circle =  r[1]
 		o.obj =  r[2]
 	}else if r.len ==1 {
-		o.twin =  r[0]
+		o.circle =  r[0]
 		o.obj =  r[1]
 	}else if r.len ==0 {
 		o.obj =  r[0]

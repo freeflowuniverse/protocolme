@@ -1,9 +1,8 @@
 module people
 
-// import freeflowuniverse.protocolme.models.backoffice.finance
 import freeflowuniverse.protocolme.models.system
 import json
-import freeflowuniverse.crystallib.resp
+import freeflowuniverse.crystallib.encoder
 
 [heap]
 pub struct Person {
@@ -54,11 +53,11 @@ pub fn person_new(data string) ?Person {
 	return Person{}
 }
 
-pub fn (mut o Person) serialize() !string {
-	mut b:=o.respbuilder()!
-	b.add(resp.r_list_string([o.id, o.firstname,o.lastname, o.description]))
-	b.add(resp.r_list_int([o.start_date.int(),o.end_date.int()]))
-	return b.data.bytestr()
+pub fn (mut o Person) bin_encoder() !encoder.Encoder {
+	// mut b:=o.respbuilder()!
+	// b.add(resp.r_list_string([o.id, o.firstname,o.lastname, o.description]))
+	// b.add(resp.r_list_int([o.start_date.int(),o.end_date.int()]))
+	// return b.data.bytestr()
 }
 
 pub fn (mut o Person) json() string {

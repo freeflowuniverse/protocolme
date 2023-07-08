@@ -4,9 +4,9 @@ module people
 pub struct MemDB {
 	DBBase
 pub mut:
-	people       map[u32]&people.Person [str: skip]
-	groups       map[u32]&people.Group [str: skip]
-	countries    map[string]&people.Country [str: skip]	
+	people       map[u32]&Person 
+	groups       map[u32]&Group 
+	countries    map[string]&Country
 }
 
 // creates a new global data structure

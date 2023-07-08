@@ -9,6 +9,6 @@ fn test_smartid() {
 
 
 	
-	panic("s")
+	// panic("s")
 
 }
